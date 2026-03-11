@@ -13,7 +13,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider 
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      domain={process.env.NODE_ENV === 'production' ? 'zapflow.warheadcompany.com' : undefined}
+      isSatellite={false}
+    >
       <html lang="pt-BR" suppressHydrationWarning>
         <body className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
           {children}
