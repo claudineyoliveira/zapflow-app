@@ -1,0 +1,11 @@
+project:
+  name: whatsapp-dispatcher
+  id: whatsapp-dispatcher
+  type: greenfield-fullstack
+  version: 0.1.0
+
+aiox:
+  core_version: 1.0.0
+  active_story: null
+  current_phase: 0
+  permission_mode: ask
