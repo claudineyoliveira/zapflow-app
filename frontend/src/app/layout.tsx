@@ -15,8 +15,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <ClerkProvider 
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-      domain={process.env.NODE_ENV === 'production' ? 'zapflow.warheadcompany.com' : undefined}
-      isSatellite={false}
     >
       <html lang="pt-BR" suppressHydrationWarning>
         <body className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>

@@ -194,12 +194,14 @@ export default function Home() {
 
   const handleDisconnect = async () => {
     try {
+      // Feedback otimista: Zeramos o frontend primeiro para melhorar a velocidade da UI (@dev)
+      setStatus('disconnected');
+      setQr(null);
+
       const res = await apiFetch('/api/logout', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
         setFeedback({ type: 'success', msg: 'Sessão desconectada. Clique em "Conectar" para gerar um novo QR Code.' });
-        setStatus('disconnected');
-        setQr(null);
       } else {
         throw new Error(data.error);
       }
@@ -492,11 +494,11 @@ export default function Home() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.8rem', gap: '1rem' }}>
                     <div style={{ flex: 1 }}>
                       <span style={{ fontSize: '0.7rem', opacity: 0.5, display: 'block' }}>MÍNIMO</span>
-                      <input type="number" className="batch-input" style={{ width: '100%' }} value={config.minDelay} onChange={(e) => setConfig({...config, minDelay: +e.target.value})} />
+                      <input type="number" min="1" className="batch-input" style={{ width: '100%' }} value={config.minDelay} onChange={(e) => setConfig({...config, minDelay: Math.max(1, +e.target.value)})} />
                     </div>
                     <div style={{ flex: 1 }}>
                       <span style={{ fontSize: '0.7rem', opacity: 0.5, display: 'block' }}>MÁXIMO</span>
-                      <input type="number" className="batch-input" style={{ width: '100%' }} value={config.maxDelay} onChange={(e) => setConfig({...config, maxDelay: +e.target.value})} />
+                      <input type="number" min="1" className="batch-input" style={{ width: '100%' }} value={config.maxDelay} onChange={(e) => setConfig({...config, maxDelay: Math.max(1, +e.target.value)})} />
                     </div>
                   </div>
                 </div>
@@ -507,8 +509,8 @@ export default function Home() {
                     <div className="info-tooltip"><HelpCircle size={14} /><span className="tooltip-text">Pausa automática obrigatória para simular comportamento humano e evitar bloqueios imediatos.</span></div>
                   </div>
                   <div style={{ fontSize: '0.85rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    Pausar por <input type="number" className="batch-input" value={config.batchPause} onChange={(e) => setConfig({...config, batchPause: +e.target.value})} /> s 
-                    a cada <input type="number" className="batch-input" value={config.batchSize} onChange={(e) => setConfig({...config, batchSize: +e.target.value})} /> envios.
+                    Pausar por <input type="number" min="0" className="batch-input" value={config.batchPause} onChange={(e) => setConfig({...config, batchPause: Math.max(0, +e.target.value)})} /> s 
+                    a cada <input type="number" min="1" className="batch-input" value={config.batchSize} onChange={(e) => setConfig({...config, batchSize: Math.max(1, +e.target.value)})} /> envios.
                   </div>
                 </div>
               </div>
