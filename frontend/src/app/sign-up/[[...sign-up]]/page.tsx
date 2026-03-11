@@ -7,7 +7,10 @@ import { Zap, Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle, RefreshCw, User,
 import Link from 'next/link';
 
 export default function SignUpPage() {
-  const { isLoaded, signUp, setActive } = useSignUp();
+  const signUpData = useSignUp() as any;
+  const isLoaded = signUpData.isLoaded;
+  const signUp = signUpData.signUp;
+  const setActive = signUpData.setActive;
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

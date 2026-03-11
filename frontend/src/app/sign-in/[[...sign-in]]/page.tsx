@@ -7,7 +7,10 @@ import { Zap, Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle, RefreshCw } from
 import Link from 'next/link';
 
 export default function SignInPage() {
-  const { isLoaded, signIn, setActive } = useSignIn();
+  const signInData = useSignIn() as any;
+  const isLoaded = signInData.isLoaded;
+  const signIn = signInData.signIn;
+  const setActive = signInData.setActive;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
