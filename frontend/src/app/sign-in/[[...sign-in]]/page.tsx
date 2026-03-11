@@ -21,7 +21,8 @@ export default function SignInPage() {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    console.log("Clerk SignIn Debug:", { isLoaded, hasSignIn: !!signIn, hasSetActive: !!setActive });
+  }, [isLoaded, signIn, setActive]);
 
   if (!mounted) return null;
 
@@ -45,7 +46,8 @@ export default function SignInPage() {
         setError('Erro ao fazer login. Verifique suas credenciais.');
       }
     } catch (err: any) {
-      setError(err.errors[0]?.message || 'Ocorreu um erro ao entrar.');
+      console.error("SignIn Error:", err);
+      setError(err.errors?.[0]?.message || 'Ocorreu um erro ao entrar.');
     } finally {
       setLoading(false);
     }

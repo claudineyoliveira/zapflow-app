@@ -24,7 +24,8 @@ export default function SignUpPage() {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    console.log("Clerk SignUp Debug:", { isLoaded, hasSignUp: !!signUp, hasSetActive: !!setActive });
+  }, [isLoaded, signUp, setActive]);
 
   if (!mounted) return null;
 
@@ -45,7 +46,8 @@ export default function SignUpPage() {
       await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
       setVerifying(true);
     } catch (err: any) {
-      setError(err.errors[0]?.message || 'Ocorreu um erro ao criar conta.');
+      console.error("SignUp Error:", err);
+      setError(err.errors?.[0]?.message || 'Ocorreu um erro ao criar conta.');
     } finally {
       setLoading(false);
     }
