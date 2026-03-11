@@ -16,11 +16,13 @@ const supabase = createSupabase(process.env.SUPABASE_URL, process.env.SUPABASE_S
 // ── Express + Socket.IO ──────────────────────────────────────
 const app = express();
 const server = http.createServer(app);
+const allowedOrigins = ['http://localhost:3000', 'https://zapflow-oficial.vercel.app'];
+
 const io = new Server(server, {
-    cors: { origin: '*', methods: ['GET', 'POST'] }
+    cors: { origin: allowedOrigins, methods: ['GET', 'POST'] }
 });
 
-app.use(cors());
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 app.use(clerkMiddleware());
 
